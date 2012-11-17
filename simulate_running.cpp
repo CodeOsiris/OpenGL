@@ -12,7 +12,6 @@ using namespace std;
 
 //Skeleton Const
 const double BASIC_SIZE = 0.25;
-const double JOINT_SPAN = 1.25;
 const double HEAD_RADIUS = 0.05;
 const double THIGH_SCALE_X = 0.7;
 const double THIGH_SCALE_Y = 0.2;
@@ -28,10 +27,10 @@ const double BODY_SCALE_Y = 1.25;
 const double BODY_SCALE_Z = 0.75;
 const double ARM_SCALE_X = 0.45;
 const double ARM_SCALE_Y = 0.15;
-const double ARM_SCALE_Z = 0.15;
+const double ARM_SCALE_Z = 0.2;
 const double FOREARM_SCALE_X = 0.65;
 const double FOREARM_SCALE_Y = 0.15;
-const double FOREARM_SCALE_Z = 0.15;
+const double FOREARM_SCALE_Z = 0.2;
 
 //Relative Const
 const static double PI = acos(-1.0);
@@ -121,7 +120,7 @@ void display()
         //Hip
         glPushMatrix();
             glTranslatef(0.0f,0.0f,BASIC_SIZE * THIGH_SCALE_Z);
-            glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y  / 2 * JOINT_SPAN,10,10);
+            glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2,10,10);
         glPopMatrix();
         //Thigh
         glRotatef((GLfloat)left_thigh_angle,0.0f,0.0f,1.0f);
@@ -132,7 +131,7 @@ void display()
         glPopMatrix();
         //Knee
         glTranslatef(BASIC_SIZE * THIGH_SCALE_X / 2,0.0f,0.0f);
-        glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2 * JOINT_SPAN,10,10);
+        glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2,10,10);
         //Calf
         glRotatef((GLfloat)left_calf_angle,0.0f,0.0f,1.0f);
         glTranslatef(calfL[0],calfL[1],calfL[2]);
@@ -161,7 +160,7 @@ void display()
         glPopMatrix();
         //Elbow
         glTranslatef(BASIC_SIZE * ARM_SCALE_X / 2,0.0f,0.0f);
-        glutSolidSphere(BASIC_SIZE * ARM_SCALE_Y / 2 * JOINT_SPAN,10,10);
+        glutSolidSphere(BASIC_SIZE * ARM_SCALE_Y / 2,10,10);
         //Forearm
         glRotatef((GLfloat)left_forearm_angle,0.0f,0.0f,1.0f);
         glTranslatef(BASIC_SIZE * FOREARM_SCALE_X / 2,0.0f,0.0f);
@@ -176,7 +175,7 @@ void display()
         //Hip
         glPushMatrix();
             glTranslatef(0.0f,0.0f,-BASIC_SIZE * THIGH_SCALE_Z);
-            glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2 * JOINT_SPAN,10,10);
+            glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2,10,10);
         glPopMatrix();
         //Thigh
         glRotatef((GLfloat)right_thigh_angle,0.0f,0.0f,1.0f);
@@ -187,7 +186,7 @@ void display()
         glPopMatrix();
         //Knee
         glTranslatef(BASIC_SIZE * THIGH_SCALE_X / 2,0.0f,0.0f);
-        glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2 * JOINT_SPAN,10,10);
+        glutSolidSphere(BASIC_SIZE * THIGH_SCALE_Y / 2,10,10);
         //Calf
         glRotatef((GLfloat)right_calf_angle,0.0f,0.0f,1.0f);
         glTranslatef(calfR[0],calfR[1],calfR[2]);
@@ -216,7 +215,7 @@ void display()
         glPopMatrix();
         //Elbow
         glTranslatef(BASIC_SIZE * ARM_SCALE_X / 2,0.0f,0.0f);
-        glutSolidSphere(BASIC_SIZE * ARM_SCALE_Y / 2 * JOINT_SPAN,10,10);
+        glutSolidSphere(BASIC_SIZE * ARM_SCALE_Y / 2,10,10);
         //Forearm
         glRotatef((GLfloat)right_forearm_angle,0.0f,0.0f,1.0f);
         glTranslatef(BASIC_SIZE * FOREARM_SCALE_X / 2,0.0f,0.0f);
