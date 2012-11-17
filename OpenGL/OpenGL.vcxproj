@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OpenGL.cpp" />
+    <ClCompile Include="..\OpenGL.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{72F2E8A8-3378-48FA-A54A-50292C7CA452}</ProjectGuid>
