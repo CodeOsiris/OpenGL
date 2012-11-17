@@ -1,4 +1,8 @@
 OpenGL
 ======
 
-Computer Graph Homework
+计算机图形学第一次大作业
+
+包含头部，躯干，上臂，球状肘关节，前臂，球状髋关节，大腿，球状膝关节，小腿，足部
+
+Windows用户进入OpenGL目录下编译运行OpenGL.cpp，Linux用户直接执行simulate_running

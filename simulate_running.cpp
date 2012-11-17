@@ -1,4 +1,10 @@
+#ifdef _WIN32
+#include <glut.h>
+#define DELAY 12
+#else
 #include <GL/glut.h>
+#define DELAY 1
+#endif
 #include <iostream>
 #include <cmath>
 #include <cstdio>
@@ -28,7 +34,8 @@ const double FOREARM_SCALE_Z = 0.2;
 
 //Relative Const
 const static double PI = acos(-1.0);
-const int NUM_OF_LINE = 50;
+const double INCREMENT = 0.005;
+const int NUM_OF_LINE = 100;
 const int BLOCK_SIZE = 1;
 
 //Skeleton Parameter
@@ -90,7 +97,7 @@ void display()
             glVertex3f(-NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move * sin((double)vangle / 180.0 * PI));
         glEnd();
     }
-    floor_move += 0.005;
+    floor_move += INCREMENT;
     if (floor_move >= BLOCK_SIZE)
       floor_move -= BLOCK_SIZE;
     glPushMatrix();
@@ -277,7 +284,7 @@ void refresh(int c)
         right_forearm_angle -= 0.5;
     }
     glutPostRedisplay();
-    glutTimerFunc(1,refresh,0);
+    glutTimerFunc(DELAY,refresh,0);
 }
 
 void reshape(int w,int h)
