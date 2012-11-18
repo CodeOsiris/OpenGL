@@ -46,7 +46,7 @@ const double FOREARM_SCALE_Z = 0.15;
 //Relative Const
 const static double PI = acos(-1.0);
 const double INCREMENT = 0.005;
-const int NUM_OF_LINE = 135;
+const int NUM_OF_LINE = 32;
 const int BLOCK_SIZE = 1;
 
 //Skeleton Parameter
@@ -100,23 +100,27 @@ void display()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.3f,0.3f,0.3f);
 	//Floor
-    for (int i = 0;i < NUM_OF_LINE;i++)
+    for (int i = 0;i < NUM_OF_LINE * 2;i++)
     {
         glBegin(GL_LINES);
-            glVertex3f((NUM_OF_LINE / 2 - i) * BLOCK_SIZE + floor_move_x,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,NUM_OF_LINE * BLOCK_SIZE);
-            glVertex3f((NUM_OF_LINE / 2 - i) * BLOCK_SIZE + floor_move_x,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,-NUM_OF_LINE * BLOCK_SIZE);
+            glVertex3f((NUM_OF_LINE - i) * BLOCK_SIZE + floor_move_x,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,NUM_OF_LINE * BLOCK_SIZE);
+            glVertex3f((NUM_OF_LINE - i) * BLOCK_SIZE + floor_move_x,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,-NUM_OF_LINE * BLOCK_SIZE);
         glEnd();
         glBegin(GL_LINES);
-            glVertex3f(NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move_y);
-            glVertex3f(-NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move_y);
+            glVertex3f(NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE - i) * BLOCK_SIZE - floor_move_y);
+            glVertex3f(-NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE - i) * BLOCK_SIZE - floor_move_y);
         glEnd();
     }
     floor_move_x += INCREMENT * cos((double)vangle / 180.0 * PI);
 	floor_move_y += INCREMENT * sin((double)vangle / 180.0 * PI);
     if (floor_move_x >= BLOCK_SIZE)
       floor_move_x -= BLOCK_SIZE;
+    else if (floor_move_x <= -BLOCK_SIZE)
+      floor_move_x += BLOCK_SIZE;
 	if (floor_move_y >= BLOCK_SIZE)
       floor_move_y -= BLOCK_SIZE;
+    else if (floor_move_y <= -BLOCK_SIZE)
+      floor_move_y += BLOCK_SIZE;
     glPushMatrix();
     glTranslatef(centerX,centerY,centerZ);
     glPushMatrix();
@@ -315,7 +319,7 @@ void reshape(int w,int h)
     glViewport(0,0,(GLsizei)w,(GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(60.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
+    gluPerspective(75.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(lookatX,lookatY,lookatZ,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
@@ -344,7 +348,7 @@ void mouse(int button,int state,int x,int y)
 					view_stretch *= STRETCH_SCALE;
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
-				gluPerspective(60.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
+				gluPerspective(75.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 				gluLookAt(lookatX * view_stretch,lookatY * view_stretch,lookatZ * view_stretch,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
@@ -357,7 +361,7 @@ void mouse(int button,int state,int x,int y)
 					view_stretch /= STRETCH_SCALE;
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
-				gluPerspective(60.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
+				gluPerspective(75.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 				gluLookAt(lookatX * view_stretch,lookatY * view_stretch,lookatZ * view_stretch,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
@@ -375,9 +379,12 @@ void control(unsigned char key,int x,int y)
         case 'd':
             vangle = (vangle - 1) % 360;
             break;
-		case 's':
+        case 'w':
 			vangle = -(180 - vangle) % 360;
 			break;
+        case 's':
+            vangle = -(180 - vangle) % 360;
+            break;
 		case 32:
 			look_from_left = !look_from_left;
 			if (look_from_left)
