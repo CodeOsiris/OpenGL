@@ -1,16 +1,6 @@
-D:\USERS\THE19THHELL\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\OPENGL\OPENGL\DEBUG\OPENGL.OBJ
-D:\USERS\THE19THHELL\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\OPENGL\OPENGL\DEBUG\VC110.PDB
-D:\USERS\THE19THHELL\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\OPENGL\OPENGL\DEBUG\SIMULATE_RUNNING.OBJ
-D:\USERS\THE19THHELL\DOCUMENTS\GITHUB\OPENGL\OPENGL\DEBUG\OPENGL.OBJ
 D:\USERS\THE19THHELL\DOCUMENTS\GITHUB\OPENGL\OPENGL\DEBUG\VC110.PDB
-D:\USERS\THE19THHELL\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\OPENGL\DEBUG\OPENGL.ILK
-D:\USERS\THE19THHELL\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\OPENGL\DEBUG\OPENGL.EXE
-D:\USERS\THE19THHELL\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\OPENGL\DEBUG\OPENGL.PDB
-D:\USERS\THE19THHELL\DOCUMENTS\GITHUB\OPENGL\DEBUG\OPENGL.ILK
-D:\USERS\THE19THHELL\DOCUMENTS\GITHUB\OPENGL\DEBUG\OPENGL.EXE
-D:\USERS\THE19THHELL\DOCUMENTS\GITHUB\OPENGL\DEBUG\OPENGL.PDB
+D:\USERS\THE19THHELL\DOCUMENTS\GITHUB\OPENGL\OPENGL\DEBUG\OPENGL.OBJ
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\OpenGL.obj
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\simulate_running.obj
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\cl.command.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\CL.read.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\CL.write.1.tlog
@@ -18,41 +8,16 @@ D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link-cvtres.read.1.tlo
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link-cvtres.write.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link-rc.read.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link-rc.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.2608-cvtres.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.2608-cvtres.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.2608-rc.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.2608-rc.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.2608.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.2608.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.3432-cvtres.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.3432-cvtres.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.3432-rc.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.3432-rc.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.3432.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.3432.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4292-cvtres.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4292-cvtres.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4292-rc.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4292-rc.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4292.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4292.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.6396-cvtres.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.6396-cvtres.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.6396-rc.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.6396-rc.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.6396.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.6396.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.7832-cvtres.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.7832-cvtres.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.7832-rc.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.7832-rc.write.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.7832.read.1.tlog
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.7832.write.1.tlog
+D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4236-cvtres.read.1.tlog
+D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4236-cvtres.write.1.tlog
+D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4236-rc.read.1.tlog
+D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4236-rc.write.1.tlog
+D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4236.read.1.tlog
+D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.4236.write.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.command.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.read.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\link.write.1.tlog
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\vc110.idb
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\OpenGL\Debug\vc110.pdb
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\Debug\OpenGL.pdb
-D:\Users\The19ThHell\Documents\GitHub\OpenGL\Debug\OpenGL.exe
 D:\Users\The19ThHell\Documents\GitHub\OpenGL\Debug\OpenGL.ilk
