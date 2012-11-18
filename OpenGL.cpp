@@ -1,13 +1,21 @@
 #include <iostream>
 #include <cmath>
 #include <cstdio>
+
 #ifdef _WIN32
 #include <glut.h>
 #define GLUT_DISABLE_ATEXIT_HACK
 #define DELAY 12
-#else
+#endif
+
+#ifdef __linux
 #include <GL/glut.h>
 #define DELAY 1
+#endif
+
+#ifdef MACRO
+#include <GL/glut.h>
+#define DELAY 12
 #endif
 using namespace std;
 
@@ -52,7 +60,6 @@ float armL[3] = {BASIC_SIZE * ARM_SCALE_X / 2,0.0f,BASIC_SIZE * (ARM_SCALE_Z + B
 float armR[3] = {BASIC_SIZE * ARM_SCALE_X / 2,0.0f,-BASIC_SIZE * (ARM_SCALE_Z + BODY_SCALE_Z) / 2};
 
 //Relative Parameter
-GLUquadricObj *quadric;
 bool left_forward = true;
 bool right_forward = false;
 bool look_from_left = true;
@@ -64,6 +71,9 @@ double far_sight = 200.0;
 double lookatX = -1.06;
 double lookatY = 0.5;
 double lookatZ = 1.06;
+double centerX = 0;
+double centerY = 0;
+double centerZ = 0;
 int scr_w;
 int scr_h;
 int vangle = 0;
@@ -83,9 +93,6 @@ void init()
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
-    quadric = gluNewQuadric();
-    gluQuadricNormals(quadric,GLU_SMOOTH);
-    gluQuadricTexture(quadric,GL_TRUE);
 }
 
 void display()
@@ -110,6 +117,8 @@ void display()
       floor_move_x -= BLOCK_SIZE;
 	if (floor_move_y >= BLOCK_SIZE)
       floor_move_y -= BLOCK_SIZE;
+    glPushMatrix();
+    glTranslatef(centerX,centerY,centerZ);
     glPushMatrix();
     glRotatef(vangle,0.0f,1.0f,0.0f);
     glColor3f(0.9f,0.9f,0.9f);
@@ -235,12 +244,14 @@ void display()
         glPopMatrix();
     glPopMatrix();
     glPopMatrix();
+    glPopMatrix();
     glFlush();
     glutSwapBuffers();
 }
 
 void refresh(int c)
 {
+    centerY = -(1 - sin(-left_thigh_angle / 180.0 * PI)) * BASIC_SIZE * THIGH_SCALE_X + BASIC_SIZE * FOOT_SCALE_Y / 2;
     if (left_thigh_angle < -120)
     {
         left_forward = false;
@@ -389,7 +400,7 @@ int main(int argc,char *argv[])
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(600,600);
     glutInitWindowPosition(100,100);
-    glutCreateWindow(argv[0]);
+    glutCreateWindow("Simulate Human Walk");
     init();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
