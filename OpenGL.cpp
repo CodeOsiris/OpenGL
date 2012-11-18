@@ -1,17 +1,19 @@
+#include <iostream>
+#include <cmath>
+#include <cstdio>
 #ifdef _WIN32
 #include <glut.h>
+#define GLUT_DISABLE_ATEXIT_HACK
 #define DELAY 12
 #else
 #include <GL/glut.h>
 #define DELAY 1
 #endif
-#include <iostream>
-#include <cmath>
-#include <cstdio>
 using namespace std;
 
 //Skeleton Const
 const double BASIC_SIZE = 0.25;
+const double STRETCH_SCALE = 0.8;
 const double JOINT_SPAN = 1.25;
 const double HEAD_RADIUS = 0.05;
 const double THIGH_SCALE_X = 0.7;
@@ -36,7 +38,7 @@ const double FOREARM_SCALE_Z = 0.15;
 //Relative Const
 const static double PI = acos(-1.0);
 const double INCREMENT = 0.005;
-const int NUM_OF_LINE = 100;
+const int NUM_OF_LINE = 135;
 const int BLOCK_SIZE = 1;
 
 //Skeleton Parameter
@@ -53,10 +55,15 @@ float armR[3] = {BASIC_SIZE * ARM_SCALE_X / 2,0.0f,-BASIC_SIZE * (ARM_SCALE_Z + 
 GLUquadricObj *quadric;
 bool left_forward = true;
 bool right_forward = false;
-double floor_move;
-double lookatX;
-double lookatY;
-double lookatZ;
+bool look_from_left = true;
+double floor_move_x = 0.0;
+double floor_move_y = 0.0;
+double view_stretch = 1.0;
+double near_sight = 1.0;
+double far_sight = 200.0;
+double lookatX = -1.06;
+double lookatY = 0.5;
+double lookatZ = 1.06;
 int scr_w;
 int scr_h;
 int vangle = 0;
@@ -79,28 +86,30 @@ void init()
     quadric = gluNewQuadric();
     gluQuadricNormals(quadric,GLU_SMOOTH);
     gluQuadricTexture(quadric,GL_TRUE);
-    lookatX = -1.06;
-    lookatY = 0.5;
-    lookatZ = 1.06;
 }
 
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glColor3f(0.3f,0.3f,0.3f);
+	//Floor
     for (int i = 0;i < NUM_OF_LINE;i++)
     {
         glBegin(GL_LINES);
-            glVertex3f((NUM_OF_LINE / 2 - i) * BLOCK_SIZE + floor_move * cos((double)vangle / 180.0 * PI),-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,NUM_OF_LINE * BLOCK_SIZE);
-            glVertex3f((NUM_OF_LINE / 2 - i) * BLOCK_SIZE + floor_move * cos((double)vangle / 180.0 * PI),-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,-NUM_OF_LINE * BLOCK_SIZE);
+            glVertex3f((NUM_OF_LINE / 2 - i) * BLOCK_SIZE + floor_move_x,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,NUM_OF_LINE * BLOCK_SIZE);
+            glVertex3f((NUM_OF_LINE / 2 - i) * BLOCK_SIZE + floor_move_x,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,-NUM_OF_LINE * BLOCK_SIZE);
         glEnd();
         glBegin(GL_LINES);
-            glVertex3f(NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move * sin((double)vangle / 180.0 * PI));
-            glVertex3f(-NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move * sin((double)vangle / 180.0 * PI));
+            glVertex3f(NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move_y);
+            glVertex3f(-NUM_OF_LINE * BLOCK_SIZE,-BASIC_SIZE * (BODY_SCALE_Y + THIGH_SCALE_X + CALF_SCALE_X + FOOT_SCALE_Z) / 2,(NUM_OF_LINE / 2 - i) * BLOCK_SIZE - floor_move_y);
         glEnd();
     }
-    floor_move += INCREMENT;
-    if (floor_move >= BLOCK_SIZE)
-      floor_move -= BLOCK_SIZE;
+    floor_move_x += INCREMENT * cos((double)vangle / 180.0 * PI);
+	floor_move_y += INCREMENT * sin((double)vangle / 180.0 * PI);
+    if (floor_move_x >= BLOCK_SIZE)
+      floor_move_x -= BLOCK_SIZE;
+	if (floor_move_y >= BLOCK_SIZE)
+      floor_move_y -= BLOCK_SIZE;
     glPushMatrix();
     glRotatef(vangle,0.0f,1.0f,0.0f);
     glColor3f(0.9f,0.9f,0.9f);
@@ -293,24 +302,58 @@ void reshape(int w,int h)
     scr_w = w;
     scr_h = h;
     glViewport(0,0,(GLsizei)w,(GLsizei)h);
-    glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(60.0,(GLfloat)w / (GLfloat)h,1.0,200.0);
+    gluPerspective(60.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(lookatX,lookatY,lookatZ,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
 }
 
-void mousemove(int x,int y)
+void passiveMotion(int x,int y)
 {
     lookatX = -1.5 + (double)x / scr_w * 3;
     lookatY = 1 - (double)y / scr_h * 2;
-    lookatZ = sqrt(2.25 - lookatX * lookatX);
+	if (look_from_left)
+		lookatZ = sqrt(2.25 - lookatX * lookatX);
+	else lookatZ = -sqrt(2.25 - lookatX * lookatX);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(lookatX,lookatY,lookatZ,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
+    gluLookAt(lookatX * view_stretch,lookatY * view_stretch,lookatZ * view_stretch,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
 }
 
+void mouse(int button,int state,int x,int y)
+{
+	switch (button)
+	{
+		case GLUT_LEFT_BUTTON:
+			if (state == GLUT_DOWN)
+			{
+				if (near_sight * view_stretch > 0.5)
+					view_stretch *= STRETCH_SCALE;
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+				gluPerspective(60.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				gluLookAt(lookatX * view_stretch,lookatY * view_stretch,lookatZ * view_stretch,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
+			}
+			break;
+		case GLUT_RIGHT_BUTTON:
+			if (state == GLUT_DOWN)
+			{
+				if (far_sight * view_stretch < 1000.0)
+					view_stretch /= STRETCH_SCALE;
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+				gluPerspective(60.0,(GLfloat)scr_w / (GLfloat)scr_h,near_sight * view_stretch,far_sight * view_stretch);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				gluLookAt(lookatX * view_stretch,lookatY * view_stretch,lookatZ * view_stretch,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
+			}
+			break;
+	}
+}
 void control(unsigned char key,int x,int y)
 {
     switch(key)
@@ -321,11 +364,20 @@ void control(unsigned char key,int x,int y)
         case 'd':
             vangle = (vangle - 1) % 360;
             break;
-        case 's':
-            vangle = -(180 - vangle) % 360;
-            break;
-        case 27:
-            exit(0);
+		case 's':
+			vangle = -(180 - vangle) % 360;
+			break;
+		case 32:
+			look_from_left = !look_from_left;
+			if (look_from_left)
+				lookatZ = sqrt(2.25 - lookatX * lookatX);
+			else lookatZ = -sqrt(2.25 - lookatX * lookatX);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(lookatX * view_stretch,lookatY * view_stretch,lookatZ * view_stretch,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
+			break;
+		case 27:
+			exit(0);
         default:
             break;
     }
@@ -341,7 +393,8 @@ int main(int argc,char *argv[])
     init();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-    glutPassiveMotionFunc(mousemove);
+    glutPassiveMotionFunc(passiveMotion);
+	glutMouseFunc(mouse);
     glutKeyboardFunc(control);
     refresh(0);
     glutMainLoop();
